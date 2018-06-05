@@ -1,0 +1,35 @@
+{% extends 'user_profile/login-wrapper.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Регистрация' %}{% endblock title %}
+
+{% block content %}
+    <h4 class="login-title">{% trans 'Регистрация' %}</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                    {% if field.field.required %}<span class="required-field">*</span>{% endif %}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <label class="error">{{ error }}</label>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-primary">{% trans 'Зарегистрироватся' %}</button>
+        <a href="{% url 'user:login' %}" class="btn btn-default">{% trans 'Вход' %}</a><br>
+    </form>
+{% endblock content %}

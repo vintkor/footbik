@@ -1,0 +1,32 @@
+{% extends 'cabinet.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Регистрация ребёнка' %}{% endblock %}
+{% block page_title %}{% trans 'Регистрация ребёнка' %}{% endblock page_title %}
+
+{% block content %}
+
+    <div class="col-md-4">
+        <div class="panel panel-white">
+            <form action="" method="post" id="child-register-form">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group {% if field.errors %}has-error{% endif %}">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <label class="error">{{ error }}</label>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-primary">{% trans 'Зарегистрировать ребёнка' %}</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block header_scripts %}{% endblock header_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

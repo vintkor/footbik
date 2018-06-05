@@ -1,0 +1,25 @@
+.login-page {
+  background-image: url("assets/images/login.jpeg");
+}
+
+.login-box {
+  width: 25%;
+  @media (max-width: 1200px) {
+    width: 50%;
+  }
+  @media (max-width: 992px) {
+    width: 33.33333333%;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+label.error {
+  margin-bottom: 10px;
+  float: none;
+}
+
+.required-field {
+  color: #d22;
+}

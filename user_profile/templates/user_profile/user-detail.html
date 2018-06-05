@@ -1,0 +1,29 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-white">
+            <div class="panel-body user-profile-panel">
+                <img src="{% static '/cabinet/' %}assets/images/avatars/avatar1.jpg" class="user-profile-image img-circle" alt="">
+                <h4 class="text-center m-t-lg">{{ user.get_full_name }}</h4>
+                <p class="text-center">...</p>
+                <hr>
+                <ul class="list-unstyled text-center">
+                    <li><p><i class="fa fa-map-marker m-r-xs"></i>Melbourne, Australia</p></li>
+                    <li><p><i class="fa fa-paper-plane-o m-r-xs"></i><a href="profile.html#">{{ user.email }}</a></p></li>
+                    <li><p><i class="fa fa-link m-r-xs"></i><a href="profile.html#">www.themeforest.net</a></p></li>
+                </ul>
+                <hr>
+                <button class="btn btn-primary">{% trans 'Редактировать' %}</button>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block header_scripts %}{% endblock header_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

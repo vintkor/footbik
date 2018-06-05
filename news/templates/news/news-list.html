@@ -1,0 +1,14 @@
+{% extends 'publick.html' %}
+
+{% block content %}
+    <h1>Все новости</h1>
+
+    {% for n in news %}
+        <hr>
+        <h2><a href="{% url 'news:detail' n.slug %}">{{ n.title }}</a></h2>
+        <p>{{ n.excerpt }}</p>
+        <p>{{ n.created }}</p>
+        <p>{{ n.region }}</p>
+    {% endfor %}
+
+{% endblock %}

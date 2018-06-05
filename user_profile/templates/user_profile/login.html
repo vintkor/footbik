@@ -1,0 +1,33 @@
+{% extends 'user_profile/login-wrapper.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Вход в кабинет' %}{% endblock title %}
+
+{% block content %}
+    <h4 class="login-title">{% trans 'Вход в кабинет' %}</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <label class="error">{{ error }}</label>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-primary">{% trans 'Войти' %}</button>
+        <a href="{% url 'user:register' %}" class="btn btn-default">{% trans 'Регистрация' %}</a><br>
+        <a href="#" class="forgot-link">{% trans 'Забыли пароль?' %}</a>
+    </form>
+{% endblock content %}

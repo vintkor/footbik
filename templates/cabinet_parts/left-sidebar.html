@@ -1,0 +1,67 @@
+{% load i18n %}
+
+<div class="page-sidebar">
+    <a class="logo-box" href="index.html">
+        <span>Space</span>
+        <i class="icon-radio_button_unchecked" id="fixed-sidebar-toggle-button"></i>
+        <i class="icon-close" id="sidebar-toggle-button-close"></i>
+    </a>
+    <div class="page-sidebar-inner">
+        <div class="page-sidebar-menu">
+            <ul class="accordion-menu">
+                <li>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="menu-icon icon-home4"></i><span>Dashboard</span>
+                    </a>
+                </li>
+
+                {% if user.is_parent %}
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="menu-icon fa fa-group"></i>
+                            <span>{% trans 'Я родитель' %}</span>
+                            <i class="accordion-icon fa fa-angle-left"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'user:my-children' %}">{% trans 'Мои дети' %}</a></li>
+                            <li><a href="{% url 'user:add-child' %}">{% trans 'Добавить ребёнка' %}</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
+                {% if user.is_investor %}
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="menu-icon fa fa-pie-chart"></i>
+                            <span>{% trans 'Я инвестор' %}</span>
+                            <i class="accordion-icon fa fa-angle-left"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Alerts</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
+{#                {% if user.is_child %}#}
+                    <li>
+                        <a href="javascript:void(0);">
+                            <i class="menu-icon fa fa-child"></i>
+                            <span>{% trans 'Я ученик' %}</span>
+                            <i class="accordion-icon fa fa-angle-left"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Alerts</a></li>
+                        </ul>
+                    </li>
+{#                {% endif %}#}
+
+                <li class="menu-divider"></li>
+                <li>
+                    <a href="#">
+                        <i class="menu-icon icon-help_outline"></i><span>Documentation</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
