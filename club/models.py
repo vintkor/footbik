@@ -63,6 +63,9 @@ class ClubImage(models.Model):
 
 
 class ClubLesson(models.Model):
+    """
+    Занятие клуба
+    """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     description = models.CharField(max_length=200, verbose_name=_('META Описание'), blank=True, null=True)
 
