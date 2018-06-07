@@ -53,6 +53,11 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
         return False
 
+    def is_administrator(self):
+        if self.administrator:
+            return True
+        return False
+
 
 class Investor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -83,6 +88,17 @@ class Child(models.Model):
     class Meta:
         verbose_name = _('Ребёнок')
         verbose_name_plural = _('Дети')
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+
+class Administrator(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('Администратор клуба')
+        verbose_name_plural = _('Администраторы клубов')
 
     def __str__(self):
         return self.user.get_full_name()

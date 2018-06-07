@@ -42,18 +42,29 @@
                     </li>
                 {% endif %}
 
-{#                {% if user.is_child %}#}
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="menu-icon fa fa-soccer-ball-o"></i>
+                        <span>{% trans 'Клубы' %}</span>
+                        <i class="accordion-icon fa fa-angle-left"></i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'club:list-cabinet' %}">Список клубов</a></li>
+                    </ul>
+                </li>
+
+                {% if user.is_administrator %}
                     <li>
                         <a href="javascript:void(0);">
-                            <i class="menu-icon fa fa-child"></i>
-                            <span>{% trans 'Я ученик' %}</span>
+                            <i class="menu-icon fa fa-cogs"></i>
+                            <span>{% trans 'Я администратор' %}</span>
                             <i class="accordion-icon fa fa-angle-left"></i>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="#">Alerts</a></li>
+                            <li><a href="{% url 'club:admin-my-clubs' %}">Мои клубы</a></li>
                         </ul>
                     </li>
-{#                {% endif %}#}
+                {% endif %}
 
                 <li class="menu-divider"></li>
                 <li>

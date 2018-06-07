@@ -1,0 +1,63 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans 'Клубы' %}{% endblock %}
+{% block page_title %}{% trans 'Клубы' %}{% endblock page_title %}
+
+{% block content %}
+
+    <div class="col-sm-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title"></h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="display table" id="clubsTableCabinet">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>{% trans 'Название клуба' %}</th>
+                                    <th>{% trans 'Город' %}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for club in clubs %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ club.title }}</td>
+                                        <td>{{ club.region }}</td>
+                                        <td>
+                                            <button class="cabinetClubRequest btn btn-default btn-rounded" data-id="{{ club.id }}">{% trans 'Запрос на участие' %}</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th>{% trans 'Название клуба' %}</th>
+                                    <th>{% trans 'Город' %}</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block header_scripts %}
+    <link rel="stylesheet" href="{% static '/cabinet/' %}assets/plugins/datatables/css/jquery.datatables.min.css">
+    <link rel="stylesheet" href="{% static '/cabinet/' %}assets/plugins/datatables/css/jquery.datatables_themeroller.css">
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+    <script src="{% static '/cabinet/' %}assets/plugins/datatables/js/jquery.datatables.min.js"></script>
+{% endblock footer_scripts %}

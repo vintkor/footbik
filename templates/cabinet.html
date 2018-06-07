@@ -18,6 +18,8 @@
         <link href="{% static '/cabinet/' %}assets/plugins/icomoon/style.css" rel="stylesheet">
         <link href="{% static '/cabinet/' %}assets/plugins/uniform/css/default.css" rel="stylesheet"/>
         <link href="{% static '/cabinet/' %}assets/plugins/switchery/switchery.min.css" rel="stylesheet"/>
+
+        {% block header_scripts %}{% endblock header_scripts %}
       
         <!-- Theme Styles -->
         <link href="{% static '/cabinet/' %}assets/css/space.min.css" rel="stylesheet">
@@ -30,7 +32,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        {% block header_scripts %}{% endblock header_scripts %}
+
     </head>
     <body>
         
@@ -318,10 +320,12 @@
         <script src="{% static '/cabinet/' %}assets/plugins/switchery/switchery.min.js"></script>
         <script src="{% static '/cabinet/' %}assets/js/space.min.js"></script>
 
+        {% block footer_scripts %}{% endblock footer_scripts %}
+
         <script src="{% static '/cabinet/main.js' %}"></script>
         <link rel="stylesheet" href="{% static '/cabinet/main.css' %}">
 
-        {% block footer_scripts %}{% endblock footer_scripts %}
+
     </body>
 </html>
 

@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'geo',
     'news',
     'club',
+    'shop',
+    'schedule',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,74 @@
+{% extends 'cabinet.html' %}
+{% load i18n %}
+
+{% block title %}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+
+    {% include 'club/_club-admin-actions.html' %}
+
+    <div class="col-sm-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{% trans 'Общая информация о клубе' %}</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive-">
+                        <table class="table">
+                            <tr class="bg-light">
+                                <td colspan="3">{% trans 'Группы' %}</td>
+                            </tr>
+                            <tr class="bg-light">
+                                <td>{% trans 'Название' %}</td>
+                                <td>{% trans 'Количество детей' %}</td>
+                                <td>{% trans 'Действия' %}</td>
+                            </tr>
+                            {% for group in club.group_set.all %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ group.title }}</td>
+                                    <td style="vertical-align: middle;">{{ group.count_children }}</td>
+                                    <td style="vertical-align: middle;">
+                                        <div class="btn-group">
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    {% trans 'Действия' %}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-group="{{ group.id }}" href="#" class="lookChildrenList">{% trans 'Список учеников' %}</a></li>
+                                                    <li class="divider" role="separator"></li>
+                                                    <li><a data-group="{{ group.id }}" href="#" class="lookSchedule">{% trans 'Расписание' %}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+{#                            <tr>#}
+{#                                <td></td>#}
+{#                                <td></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td></td>#}
+{#                                <td></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td></td>#}
+{#                                <td></td>#}
+{#                            </tr>#}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block header_scripts %}
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}

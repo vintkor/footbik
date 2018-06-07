@@ -4,6 +4,7 @@ from .models import (
     Investor,
     Parent,
     Child,
+    Administrator,
 )
 
 
@@ -39,4 +40,9 @@ class ParentAdmin(admin.ModelAdmin):
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Administrator)
+class AdministratorAdmin(admin.ModelAdmin):
     pass
