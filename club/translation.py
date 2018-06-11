@@ -1,5 +1,5 @@
 from modeltranslation.translator import TranslationOptions, register
-from club.models import (
+from .models import (
     Club,
     ClubImage,
     ClubLesson,

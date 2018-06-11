@@ -13,6 +13,8 @@ SECRET_KEY = 'gn+v(-%x+(s*4b^#g6-a_b^7equ*-r=mtliu)8$66j3_k6auap'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+MODELTRANSLATION_DEBUG = True
+
 INTERNAL_IPS = '127.0.0.1'
 ALLOWED_HOSTS = ['*']
 
@@ -114,12 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
-# LANGUAGES = (
-#   ('ru', 'Russian'),
-#   ('uk', 'Українська'),
-#   ('en', 'English'),
-# )
-
 gettext = lambda s: s
 LANGUAGES = (
     ('ru', gettext('Russian')),
@@ -130,11 +126,11 @@ LANGUAGES = (
 MODELTRANSLATION_LANGUAGES = ('ru', 'uk', 'en')
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'ru'
-MODELTRANSLATION_DEBUG = True
-
 MODELTRANSLATION_TRANSLATION_FILES = (
-    # 'club.translation',
-    # '<APP2_MODULE>.translation',
+    'club.translation',
+    'geo.translation',
+    'news.translation',
+    'shop.translation',
 )
 
 LOCALE_PATHS = [
