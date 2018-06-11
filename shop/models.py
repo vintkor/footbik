@@ -23,11 +23,12 @@ class Category(MPTTModel):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse('news:detail', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('shop:products-in-category', args=[self.slug])
 
 
 class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     slug = models.SlugField(null=True, max_length=230, unique=True)
     image = models.ImageField(verbose_name=_('Главное изображение'), blank=True, null=True, upload_to='images/shop/')
@@ -42,20 +43,56 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_absolute_url(self):
-    #     return reverse('news:detail', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('shop:product', args=[self.category.slug, self.slug])
 
 
-class Image(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='image_set')
-    image = models.ImageField(verbose_name=_('Изображение'), upload_to='images/shop/')
+class Parameter(models.Model):
+    title = models.CharField(max_length=200, verbose_name=_('Название'))
 
     class Meta:
-        verbose_name = _('Изображение')
-        verbose_name_plural = _('Изображения')
+        verbose_name = _('Параметр')
+        verbose_name_plural = _('Параметры')
 
     def __str__(self):
-        return self.product.title
+        return self.title
+
+
+class Value(models.Model):
+    parameter = models.ForeignKey(Parameter, on_delete=models.CASCADE, verbose_name=_('Параметр'))
+    value = models.CharField(max_length=200, verbose_name=_('Значение'))
+
+    class Meta:
+        verbose_name = _('Значение')
+        verbose_name_plural = _('Значения')
+
+    def __str__(self):
+        return self.value
+
+
+class Variant(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('Товар'))
+    value = models.ManyToManyField(Value, verbose_name=_('Набор значений'))
+    price = models.DecimalField(verbose_name=_('Цена'), decimal_places=2, max_digits=10)
+
+    class Meta:
+        verbose_name = _('Вариант')
+        verbose_name_plural = _('Варианты')
+
+    def __str__(self):
+        return str(self.price)
+
+#
+# class Image(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='image_set')
+#     image = models.ImageField(verbose_name=_('Изображение'), upload_to='images/shop/')
+#
+#     class Meta:
+#         verbose_name = _('Изображение')
+#         verbose_name_plural = _('Изображения')
+#
+#     def __str__(self):
+#         return self.product.title
 
     # def get_absolute_url(self):
     #     return reverse('news:detail', args=[self.slug])

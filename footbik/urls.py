@@ -10,6 +10,7 @@ urlpatterns = [
         path('', TemplateView.as_view(template_name='cabinet.html'), name='dashboard'),
         path('user/', include('user_profile.urls')),
         path('club/', include('club.urls')),
+        path('shop/', include('shop.urls')),
     ])),
     path('', TemplateView.as_view(template_name='publick.html'), name='index'),
     path('news/', include('news.urls')),

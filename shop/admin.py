@@ -2,15 +2,29 @@ from django.contrib import admin
 from .models import (
     Category,
     Product,
-    Image,
+    # Image,
+    Parameter,
+    Value,
+    Variant,
 )
 from mptt.admin import DraggableMPTTAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
 
 
-class ImageInline(admin.TabularInline):
+# class ImageInline(admin.TabularInline):
+#     extra = 0
+#     model = Image
+
+
+class ValueInline(admin.TabularInline):
     extra = 0
-    model = Image
+    model = Value
+
+
+class VariantInline(admin.StackedInline):
+    extra = 0
+    model = Variant
+    filter_horizontal = ('value',)
 
 
 @admin.register(Category)
@@ -24,9 +38,24 @@ class CategoryAdmin(DraggableMPTTAdmin, TabbedTranslationAdmin):
 class ProductAdmin(TabbedTranslationAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('title',)}
-    inlines = (ImageInline,)
+    inlines = (VariantInline,)
 
 
-@admin.register(Image)
-class Image(admin.ModelAdmin):
+# @admin.register(Image)
+# class Image(admin.ModelAdmin):
+#     pass
+
+
+@admin.register(Parameter)
+class ParameterAdmin(admin.ModelAdmin):
+    inlines = (ValueInline,)
+
+
+@admin.register(Value)
+class ValueAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Variant)
+class VariantAdmin(admin.ModelAdmin):
+    filter_horizontal = ('value',)

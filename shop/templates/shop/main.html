@@ -1,0 +1,22 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans 'Клубы' %}{% endblock %}
+{% block page_title %}{% trans 'Клубы' %}{% endblock page_title %}
+
+{% block content %}
+    {% for category in categories %}
+        <li><a href="{% url 'shop:products-in-category' category.slug %}">{{ category.title }}</a></li>
+    {% endfor %}
+
+{% endblock content %}
+
+{% block header_scripts %}
+    <link rel="stylesheet" href="{% static '/cabinet/' %}assets/plugins/datatables/css/jquery.datatables.min.css">
+    <link rel="stylesheet" href="{% static '/cabinet/' %}assets/plugins/datatables/css/jquery.datatables_themeroller.css">
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+    <script src="{% static '/cabinet/' %}assets/plugins/datatables/js/jquery.datatables.min.js"></script>
+{% endblock footer_scripts %}
