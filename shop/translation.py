@@ -16,4 +16,5 @@ class CategoryTranslationOptions(TranslationOptions):
 class ProductTranslationOptions(TranslationOptions):
     fields = (
         'title',
+        'text',
     )
