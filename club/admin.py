@@ -5,6 +5,7 @@ from .models import (
     ClubAdministrator,
     ClubLesson,
     Group,
+    Schedule,
 )
 
 
@@ -34,3 +35,9 @@ class ClubLessonAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     save_on_top = True
     filter_horizontal = ('children',)
+
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    save_on_top = True
+    list_display = ('lesson', 'group', 'date_start', 'date_end')

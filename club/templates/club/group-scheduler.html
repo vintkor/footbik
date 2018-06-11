@@ -1,0 +1,37 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}{% trans 'Расписание группы' %} {{ group.title }}{% endblock %}
+{% block page_title %}{% trans 'Расписание группы' %} {{ group.title }}{% endblock page_title %}
+
+{% block content %}
+
+    {% include 'club/_club-admin-actions.html' %}
+
+    <div class="col-sm-12">
+        <div class="panel panel-white">
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{% trans 'Расписание группы' %}</h4>
+                </div>
+                <div class="panel-body">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block header_scripts %}
+    {% get_current_language as LANGUAGE_CODE %}
+    <script src="{% static '/' %}bower_components/moment/moment.js"></script>
+    <script src="{% static '/' %}bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="{% static '/' %}bower_components/fullcalendar/dist/locale/{{ LANGUAGE_CODE }}.js"></script>
+    <link rel="stylesheet" href="{% static '/' %}bower_components/fullcalendar/dist/fullcalendar.min.css">
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}

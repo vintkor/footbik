@@ -1,0 +1,53 @@
+{% load i18n %}
+
+<div class="modal-content">
+    <form action="{% url 'club:admin-scheduler-add-event' club.id %}" class="form" method="post">
+        {% csrf_token %}
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">{% trans 'Добавление события в' %} {{ club.title }}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="selectGroup">{% trans 'Группа' %}</label>
+                <select name="group" id="selectGroup" class="form-control">
+                    {% for group in club.group_set.all %}
+                        <option value="{{ group.id }}">{{ group.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="selectLesson">{% trans 'Занятие' %}</label>
+                <select name="lesson" id="selectLesson" class="form-control">
+                    {% for lesson in lessons %}
+                        <option value="{{ lesson.id }}">{{ lesson.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dateStart">{% trans 'Начало' %}</label>
+                <input type="text" id="dateStart" name="dateStart" class="form-control date-picker">
+            </div>
+            <div class="form-group">
+                <label for="dateEnd">{% trans 'Конец' %}</label>
+                <input type="text" id="dateEnd" name="dateEnd" class="form-control date-picker">
+            </div>
+            <div class="form-group">
+                <label for="selectRepeater">{% trans 'На какой срок продублировать?' %}</label>
+                <select name="repeater" id="selectRepeater" class="form-control">
+                    <option value="0">{% trans 'Не дублировать' %}</option>
+                    <option value="1">{% trans '1 месяц' %}</option>
+                    <option value="3">{% trans '3 месяца' %}</option>
+                    <option value="6">{% trans '6 месяцев' %}</option>
+                    <option value="12">{% trans '1 год' %}</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Отмена' %}</button>
+            <button type="submit" class="btn btn-primary">{% trans 'Добавить' %}</button>
+        </div>
+    </form>
+</div>

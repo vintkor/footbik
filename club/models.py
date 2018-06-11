@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 from geo.models import Region
 from django.urls import reverse
 from user_profile.models import User, Administrator, Child
+from colorfield.fields import ColorField
 
 
 class Club(models.Model):
@@ -84,6 +85,7 @@ class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     children = models.ManyToManyField(Child)
+    color = ColorField(verbose_name=_('Цвет'), default='#238a53')
 
     class Meta:
         verbose_name = _('Группа')
@@ -94,3 +96,25 @@ class Group(models.Model):
 
     def count_children(self):
         return self.children.count()
+
+
+class Schedule(models.Model):
+    """
+    Расписание занятий
+    """
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(ClubLesson, on_delete=models.CASCADE)
+    date_start = models.DateTimeField(verbose_name=_('Начало занятия'))
+    date_end = models.DateTimeField(verbose_name=_('Завершение занятия'))
+
+    class Meta:
+        verbose_name = _('Расписание')
+        verbose_name_plural = _('Расписания')
+
+    def __str__(self):
+        return '{} - {} с {} до {}'.format(
+            self.group,
+            self.lesson,
+            self.date_start,
+            self.date_end,
+        )

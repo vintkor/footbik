@@ -19,3 +19,10 @@ label.error {
 
 .required-field {
   color: #d22; }
+
+#setLanguage {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px; }

@@ -39,7 +39,7 @@
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a data-group="{{ group.id }}" href="#" class="lookChildrenList">{% trans 'Список учеников' %}</a></li>
                                                     <li class="divider" role="separator"></li>
-                                                    <li><a data-group="{{ group.id }}" href="#" class="lookSchedule">{% trans 'Расписание' %}</a></li>
+                                                    <li><a data-group="{{ group.id }}" href="{% url 'club:admin-group-scheduler' club.id group.id %}" class="lookSchedule">{% trans 'Расписание' %}</a></li>
                                                 </ul>
                                             </div>
                                         </div>

@@ -1,0 +1,19 @@
+{% extends 'club/group-scheduler.html' %}
+{% load i18n %}
+{% load static %}
+
+
+{% block title %}{% trans 'Расписание клуба' %} {{ group.title }}{% endblock %}
+{% block page_title %}{% trans 'Расписание клуба' %} {{ group.title }}{% endblock page_title %}
+
+{% block header_scripts %}
+    {% get_current_language as LANGUAGE_CODE %}
+    <script src="{% static '/' %}bower_components/moment/moment.js"></script>
+    <script src="{% static '/' %}bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="{% static '/' %}bower_components/fullcalendar/dist/locale/{{ LANGUAGE_CODE }}.js"></script>
+    <script src="{% static '/' %}bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="{% static '/' %}bower_components/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" href="{% static '/' %}bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+{% endblock header_scripts %}
+
+{% block footer_scripts %}{% endblock footer_scripts %}
