@@ -14,6 +14,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='publick.html'), name='index'),
     path('news/', include('news.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

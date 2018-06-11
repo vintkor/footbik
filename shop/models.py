@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Category(models.Model):
@@ -29,6 +30,7 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     slug = models.SlugField(null=True, max_length=230, unique=True)
+    text = RichTextUploadingField(verbose_name=_('Текст'), blank=True, null=True)
     is_virtual = models.BooleanField(default=False, verbose_name=_('Является виртуальным товаром'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
 

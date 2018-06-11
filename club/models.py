@@ -4,6 +4,7 @@ from geo.models import Region
 from django.urls import reverse
 from user_profile.models import User, Administrator, Child
 from colorfield.fields import ColorField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Club(models.Model):
@@ -68,7 +69,7 @@ class ClubLesson(models.Model):
     Занятие клуба
     """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
-    description = models.CharField(max_length=200, verbose_name=_('META Описание'), blank=True, null=True)
+    description = RichTextUploadingField(max_length=200, verbose_name=_('META Описание'), blank=True, null=True)
     is_test = models.BooleanField(default=False, verbose_name=_('Пробное занятие'))
 
     class Meta:

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from geo.models import Region
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class News(models.Model):
@@ -12,7 +13,7 @@ class News(models.Model):
     region = models.ForeignKey(Region, blank=True, null=True, on_delete=models.SET_NULL)
     image = models.ImageField(verbose_name=_('Изображение'), upload_to='images/news/')
     excerpt = models.TextField(verbose_name=_('Анонс'))
-    text = models.TextField(verbose_name=_('Текст'))
+    text = RichTextUploadingField(verbose_name=_('Текст'))
     created = models.DateTimeField(verbose_name=_('Дата создания'))
 
     class Meta:
