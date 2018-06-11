@@ -85,7 +85,7 @@ class Group(models.Model):
     """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    children = models.ManyToManyField(Child)
+    children = models.ManyToManyField(Child, blank=True)
     color = ColorField(verbose_name=_('Цвет'), default='#238a53')
 
     class Meta:
