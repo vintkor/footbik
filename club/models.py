@@ -69,6 +69,7 @@ class ClubLesson(models.Model):
     """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     description = models.CharField(max_length=200, verbose_name=_('META Описание'), blank=True, null=True)
+    is_test = models.BooleanField(default=False, verbose_name=_('Пробное занятие'))
 
     class Meta:
         verbose_name = _('Урок')

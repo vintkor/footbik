@@ -20,6 +20,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,10 +114,27 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
+# LANGUAGES = (
+#   ('ru', 'Russian'),
+#   ('uk', 'Українська'),
+#   ('en', 'English'),
+# )
+
+gettext = lambda s: s
 LANGUAGES = (
-  ('ru', 'Russian'),
-  ('uk', 'Українська'),
-  ('en', 'English'),
+    ('ru', gettext('Russian')),
+    ('uk', gettext('Українська')),
+    ('en', gettext('English')),
+)
+
+MODELTRANSLATION_LANGUAGES = ('ru', 'uk', 'en')
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'ru'
+MODELTRANSLATION_DEBUG = True
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    # 'club.translation',
+    # '<APP2_MODULE>.translation',
 )
 
 LOCALE_PATHS = [

@@ -7,10 +7,11 @@ from .models import (
     Group,
     Schedule,
 )
+from modeltranslation.admin import TabbedTranslationAdmin
 
 
 @admin.register(Club)
-class ClubAdmin(admin.ModelAdmin):
+class ClubAdmin(TabbedTranslationAdmin):
     save_on_top = True
     list_display = ('title', 'region', 'super_admin')
     prepopulated_fields = {'slug': ('title',)}
@@ -22,17 +23,17 @@ class ClubAdministratorAdmin(admin.ModelAdmin):
 
 
 @admin.register(ClubImage)
-class ClubImageAdmin(admin.ModelAdmin):
+class ClubImageAdmin(TabbedTranslationAdmin):
     save_on_top = True
 
 
 @admin.register(ClubLesson)
-class ClubLessonAdmin(admin.ModelAdmin):
+class ClubLessonAdmin(TabbedTranslationAdmin):
     save_on_top = True
 
 
 @admin.register(Group)
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(TabbedTranslationAdmin):
     save_on_top = True
     filter_horizontal = ('children',)
 
