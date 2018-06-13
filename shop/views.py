@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from .models import (
     Product,
     Category,
+    CartItem,
 )
 
 
@@ -24,7 +25,8 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(category__slug=self.kwargs.get('slug'))
+        category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
+        return category.get_products()
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data()
@@ -49,3 +51,19 @@ class ProductDetailView(DetailView):
             raise Http404('Page not found')
 
         return product
+
+
+class CartItemListView(ListView):
+    """
+    Корзина пользователя
+    """
+    template_name = 'shop/cart.html'
+    context_object_name = 'cart_items'
+
+    def get_queryset(self):
+        return CartItem.objects.filter(cart__user=self.request.user)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CartItemListView, self).get_context_data()
+        context['cart_total'] = self.get_queryset().first().cart.get_cart_total_sum()
+        return context

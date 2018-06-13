@@ -6,6 +6,8 @@ from .models import (
     Parameter,
     Value,
     Variant,
+    Cart,
+    CartItem,
 )
 from mptt.admin import DraggableMPTTAdmin
 from modeltranslation.admin import TabbedTranslationAdmin
@@ -59,3 +61,17 @@ class ValueAdmin(admin.ModelAdmin):
 @admin.register(Variant)
 class VariantAdmin(admin.ModelAdmin):
     filter_horizontal = ('value',)
+
+
+class CartItemAdmin(admin.ModelAdmin):
+    pass
+
+
+class CartItemInline(admin.TabularInline):
+    extra = 0
+    model = CartItem
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    inlines = (CartItemInline,)

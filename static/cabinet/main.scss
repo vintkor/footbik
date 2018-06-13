@@ -1,4 +1,5 @@
 $bg-color: #F7F9FA;
+$white-color: #fff;
 
 .login-page {
   background-image: url("assets/images/login.jpeg");
@@ -33,6 +34,8 @@ label.error {
   width: 200px;
   margin-left: -100px;
 }
+
+// ---------------------------------- Shop ----------------------------------
 
 .shop-nav {
   background: $bg-color;
@@ -75,6 +78,32 @@ label.error {
   display: block;
   transition: .2s ease-in-out;
   &:hover {
-    background: darken($bg-color, 30%);
+    background: darken($bg-color, 10%);
   }
+}
+
+.shop__product-title {
+  margin-bottom: 30px;
+  margin-top: 0;
+  text-align: center;
+}
+
+// ---------------------------------- Shopping cart ----------------------------------
+
+.cart-image__container {
+  width: 70px;
+}
+
+.cart-table__td {
+  vertical-align: middle !important;
+}
+
+.cart-image {
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border-radius: 3px;
+  border: 2px solid $white-color;
 }

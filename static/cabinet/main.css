@@ -61,4 +61,24 @@ label.error {
   display: block;
   transition: .2s ease-in-out; }
   .shop-nav__link.level-1:hover {
-    background: #99b2bf; }
+    background: #d8e1e6; }
+
+.shop__product-title {
+  margin-bottom: 30px;
+  margin-top: 0;
+  text-align: center; }
+
+.cart-image__container {
+  width: 70px; }
+
+.cart-table__td {
+  vertical-align: middle !important; }
+
+.cart-image {
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border-radius: 3px;
+  border: 2px solid white; }

@@ -1,0 +1,50 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ product.title }} {% trans 'Корзина' %}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+    {% include 'shop/_shop-top-nav.html' %}
+    <h1 class="shop__product-title">{% trans 'Корзина' %}</h1>
+
+    <form action="">
+    <table class="table table-striped cart-table">
+        <tr>
+            <th class="cart-image__container"></th>
+            <th>{% trans 'Товар' %}</th>
+            <th>{% trans 'Количество' %}</th>
+            <th>{% trans 'Цена' %}</th>
+            <th>{% trans 'Итого' %}</th>
+        </tr>
+        {% for cart_item in cart_items %}
+            <tr>
+                <td class="cart-table__td">
+                    <div role="img" class="cart-image" style="background-image: url('{{ cart_item.variant.product.image.url }}')"></div>
+                </td>
+                <td class="cart-table__td">
+                    <h5>{{ cart_item.variant.product.title }}</h5>
+                    <small>{{ cart_item.variant }}</small>
+                </td>
+                <td class="cart-table__td">
+                    <input type="text" value="{{ cart_item.quantity }}" class="qart-quantity" name="quantity">
+                </td>
+                <td class="cart-table__td">${{ cart_item.variant.price }}</td>
+                <td class="cart-table__td">${{ cart_item.get_total }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="4"></td>
+            <td>${{ cart_total }}</td>
+        </tr>
+    </table>
+    </form>
+
+{% endblock content %}
+
+{% block header_scripts %}
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}
