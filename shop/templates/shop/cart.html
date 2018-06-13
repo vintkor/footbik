@@ -14,9 +14,9 @@
         <tr>
             <th class="cart-image__container"></th>
             <th>{% trans 'Товар' %}</th>
-            <th>{% trans 'Количество' %}</th>
-            <th>{% trans 'Цена' %}</th>
-            <th>{% trans 'Итого' %}</th>
+            <th class="text-center">{% trans 'Количество' %}</th>
+            <th class="text-center">{% trans 'Цена' %}</th>
+            <th class="text-center">{% trans 'Итого' %}</th>
         </tr>
         {% for cart_item in cart_items %}
             <tr>
@@ -24,19 +24,22 @@
                     <div role="img" class="cart-image" style="background-image: url('{{ cart_item.variant.product.image.url }}')"></div>
                 </td>
                 <td class="cart-table__td">
-                    <h5>{{ cart_item.variant.product.title }}</h5>
+                    <h5><a href="{{ cart_item.variant.product.get_absolute_url }}">{{ cart_item.variant.product.title }}</a></h5>
                     <small>{{ cart_item.variant }}</small>
                 </td>
-                <td class="cart-table__td">
+                <td class="cart-table__td text-center">
                     <input type="text" value="{{ cart_item.quantity }}" class="qart-quantity" name="quantity">
                 </td>
-                <td class="cart-table__td">${{ cart_item.variant.price }}</td>
-                <td class="cart-table__td">${{ cart_item.get_total }}</td>
+                <td class="cart-table__td text-center">${{ cart_item.variant.price }}</td>
+                <td class="cart-table__td text-center">${{ cart_item.get_total }}</td>
             </tr>
         {% endfor %}
         <tr>
-            <td colspan="4"></td>
-            <td>${{ cart_total }}</td>
+            <td colspan="3"></td>
+            <td class="text-center">
+                <a href="#" id="saveCart" class="btn btn-rounded btn-default">{% trans 'Сохранить' %}</a>
+            </td>
+            <td class="text-center">${{ cart_total }}</td>
         </tr>
     </table>
     </form>

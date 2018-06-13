@@ -1,11 +1,15 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import (
     Product,
     Category,
     CartItem,
-)
+    Variant,
+    Cart)
+from django.contrib import messages
+from django.utils.translation import ugettext as _
 
 
 class CategoryListView(ListView):
@@ -61,9 +65,47 @@ class CartItemListView(ListView):
     context_object_name = 'cart_items'
 
     def get_queryset(self):
-        return CartItem.objects.filter(cart__user=self.request.user)
+        return CartItem.objects.filter(cart__user=self.request.user, cart__is_complete=False)
 
     def get_context_data(self, *args, **kwargs):
         context = super(CartItemListView, self).get_context_data()
-        context['cart_total'] = self.get_queryset().first().cart.get_cart_total_sum()
+        try:
+            context['cart_total'] = self.get_queryset().first().cart.get_cart_total_sum()
+        except:
+            pass
         return context
+
+
+class AddToCart(View):
+    """
+    Добавление товара в корзину
+    """
+
+    def post(self, request):
+        variant_id = int(self.request.POST.get('variant'))
+        quantity = int(self.request.POST.get('quantity'))
+        variant = get_object_or_404(Variant, pk=variant_id)
+        user = self.request.user
+
+        try:
+            cart = Cart.objects.get(user=user, is_complete=False)
+        except Cart.DoesNotExist:
+            cart = Cart(user=user)
+            cart.save()
+
+        try:
+            cart_item = CartItem.objects.get(
+                cart__user=user,
+                variant=variant,
+            )
+            cart_item.quantity = cart_item.quantity + quantity
+        except CartItem.DoesNotExist:
+            cart_item = CartItem()
+            cart_item.quantity = quantity
+
+        cart_item.cart = cart
+        cart_item.variant = variant
+        cart_item.save()
+
+        messages.success(request, _('Товар успешно добавлен в корзину'))
+        return redirect(self.request.META.get('HTTP_REFERER'))

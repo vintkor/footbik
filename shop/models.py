@@ -99,6 +99,7 @@ class Variant(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Пользователь'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
+    is_complete = models.BooleanField(default=False, verbose_name=_('Оформленна'))
 
     class Meta:
         verbose_name = _('Корзина')

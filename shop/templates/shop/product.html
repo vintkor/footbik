@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}{{ product.title }}{% endblock %}
-{% block page_title %}{% trans 'Магазин' %}{% endblock page_title %}
+{% block page_title %}{% endblock page_title %}
 
 {% block content %}
     {% include 'shop/_shop-top-nav.html' %}
@@ -11,7 +11,7 @@
         <h1 class="shop__product-title">{{ product.title }}</h1>
         <div class="row">
             <div class="col-md-5">
-                <img src="{{ product.image.url }}" class="img-responsive img-rounded img-thumbnail">
+                <img src="{{ product.image.url }}" class="img-responsive img-rounded">
             </div>
             <div class="col-md-7">
                 <ul class="list-group">
@@ -25,7 +25,12 @@
                                     <p class="{% if not variant.is_available %}text-danger{% else %}text-primary{% endif %}">{% trans 'В наличии' %} {{ variant.quantity }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="#" class="btn btn-sm- btn-primary pull-right btn-rounded {% if not variant.is_available %}disabled{% endif %}">{% trans 'Купить' %}</a>
+                                    <form action="{% url 'shop:add-to-cart' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" min="1" name="quantity" value="1" step="1">
+                                        <input type="hidden" name="variant" value="{{ variant.id }}">
+                                        <button class="btn btn-sm- btn-primary pull-right btn-rounded {% if not variant.is_available %}disabled{% endif %}">{% trans 'Купить' %}</button>
+                                    </form>
                                     <span class="">${{ variant.price }}</span>
                                 </div>
                             </div>
