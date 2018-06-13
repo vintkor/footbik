@@ -3,12 +3,10 @@
 {% load i18n %}
 
 {% block title %}{% trans 'Клубы' %}{% endblock %}
-{% block page_title %}{% trans 'Клубы' %}{% endblock page_title %}
+{% block page_title %}{% endblock page_title %}
 
 {% block content %}
-    {% for category in categories %}
-        <li><a href="{% url 'shop:products-in-category' category.slug %}">{{ category.title }}</a></li>
-    {% endfor %}
+    {% include 'shop/_shop-top-nav.html' %}
 
 {% endblock content %}
 

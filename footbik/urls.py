@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from footbik import settings
+from footbik.settings import MEDIA_URL, MEDIA_ROOT
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -16,7 +18,7 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-]
+] + static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar

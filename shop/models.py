@@ -26,6 +26,9 @@ class Category(MPTTModel):
     def get_absolute_url(self):
         return reverse('shop:products-in-category', args=[self.slug])
 
+    def has_products(self):
+        return self.product_set.all().exists()
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

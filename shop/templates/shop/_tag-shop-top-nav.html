@@ -1,0 +1,18 @@
+<nav class="shop-nav">
+    <ul class="shop-nav__ul level-0">
+        {% for category in categories %}
+            <li class="shop-nav__li level-0">
+                <a href="{% url 'shop:products-in-category' category.slug %}" class="shop-nav__link level-0">{{ category.title }}</a>
+                {% if category.get_children %}
+                    <ul class="shop-nav__ul level-1">
+                        {% for child_category in category.get_children %}
+                            <li class="shop-nav__li level-1">
+                                <a href="{% url 'shop:products-in-category' child_category.slug %}" class="shop-nav__link level-1">{{ child_category.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

@@ -2,23 +2,59 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans 'Клубы' %}{% endblock %}
-{% block page_title %}{% trans 'Клубы' %}{% endblock page_title %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block page_title %}{% trans 'Магазин' %}{% endblock page_title %}
 
 {% block content %}
+    {% include 'shop/_shop-top-nav.html' %}
     <div class="col-sm-12">
-        <div class="panel panel-white">
-            <div class="panel-body">
-                <div class="panel-heading clearfix">
-                    <h4 class="panel-title">{{ product.title }}</h4>
-                </div>
-                <div class="panel-body">
-                    <img src="{{ product.image.url }}" class="img-responsive">
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" class="img-responsive img-rounded img-thumbnail">
+            </div>
+            <div class="col-md-6">
+                <h1>{{ product.title }}</h1>
+                <ul class="list-group">
+                    {% for variant in product.variant_set.all %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% for value in variant.value.all %}
+                                        {{ value.parameter }} {{ value }}
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="btn btn-sm- btn-primary pull-right btn-rounded">{% trans 'Купить' %}</a>
+                                    <span class="">${{ variant.price }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
+        <br>
+{#        <div class="panel panel-white">#}
+{#            <div class="panel-body">#}
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="active"><a href="ui-tabs-accordions.html#tab21" role="tab" data-toggle="tab" aria-expanded="true">{% trans 'Полное описание' %}</a></li>
+                        <li role="presentation" class=""><a href="ui-tabs-accordions.html#tab22" role="tab" data-toggle="tab" aria-expanded="false">{% trans 'Характеристики' %}</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="tab21">
+                            {{ product.text | safe }}
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab22">
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        </div>
+                    </div>
+                </div>
+{#            </div>#}
+{#        </div>#}
     </div>
-
 {% endblock content %}
 
 {% block header_scripts %}
