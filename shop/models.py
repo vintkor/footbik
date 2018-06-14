@@ -76,7 +76,7 @@ class Value(models.Model):
         verbose_name_plural = _('Значения')
 
     def __str__(self):
-        return self.value
+        return '{} {}'.format(self.parameter, self.value)
 
 
 class Variant(models.Model):
@@ -90,10 +90,13 @@ class Variant(models.Model):
         verbose_name_plural = _('Варианты')
 
     def __str__(self):
-        return '{} {}'.format(self.product.title, self.price)
+        return '{} - {}'.format(self.product.title, self.price)
 
     def is_available(self):
         return True if self.quantity > 0 else False
+
+    def make_human_string(self):
+        return '; '.join([str(item) for item in self.value.all()])
 
 
 class Cart(models.Model):

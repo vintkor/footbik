@@ -118,5 +118,12 @@ $(document).ready(function () {
         });
     });
 
+    // ------------------------------- красивые поля input[type='number'] -------------------------------
+    // Docs http://dimox.name/jquery-form-styler/
+
+    if ($.fn.styler) {
+        $('.input_styler').styler();
+    }
+
 
 });

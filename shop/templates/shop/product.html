@@ -19,15 +19,13 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-6">
-                                    {% for value in variant.value.all %}
-                                        {{ value.parameter }} {{ value }}
-                                    {% endfor %}
+                                    {{ variant.make_human_string }}
                                     <p class="{% if not variant.is_available %}text-danger{% else %}text-primary{% endif %}">{% trans 'В наличии' %} {{ variant.quantity }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <form action="{% url 'shop:add-to-cart' %}" method="post">
                                         {% csrf_token %}
-                                        <input type="number" min="1" name="quantity" value="1" step="1">
+                                        <input type="number" min="1" name="quantity" value="1" step="1" class="input_styler">
                                         <input type="hidden" name="variant" value="{{ variant.id }}">
                                         <button class="btn btn-sm- btn-primary pull-right btn-rounded {% if not variant.is_available %}disabled{% endif %}">{% trans 'Купить' %}</button>
                                     </form>
@@ -58,6 +56,9 @@
 {% endblock content %}
 
 {% block header_scripts %}
+    <link rel="stylesheet" href="{% static '/' %}bower_components/jQueryFormStyler-master/dist/jquery.formstyler.css">
+    <link rel="stylesheet" href="{% static '/' %}bower_components/jQueryFormStyler-master/dist/jquery.formstyler.theme.css">
+    <script src="{% static '/' %}bower_components/jQueryFormStyler-master/dist/jquery.formstyler.min.js"></script>
 {% endblock header_scripts %}
 
 {% block footer_scripts %}
