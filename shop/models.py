@@ -60,6 +60,18 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product', args=[self.category.slug, self.slug])
 
+    def get_price_range(self):
+        """
+        Определяет и возвращает min и max цену продукта
+        Если вариант продукта только один - возвращает только одну цену
+        :return: string
+        """
+        variants = self.variant_set.all().values_list('price')
+        prices = [i[0] for i in variants]
+        if len(prices) > 1:
+            return '{} - {}'.format(str(min(prices)), str(max(prices)))
+        return str(prices[0])
+
 
 class Parameter(models.Model):
     """
@@ -108,6 +120,24 @@ class Variant(models.Model):
 
     def is_available(self):
         return True if self.quantity > 0 else False
+
+    def make_human_string(self):
+        return '; '.join([str(item) for item in self.value.all()])
+
+
+class ProductParameters(models.Model):
+    """
+    Характеристики товара (в общем для товара - не для варианта)
+    """
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    value = models.ManyToManyField(Value, verbose_name=_('Набор значений'))
+
+    class Meta:
+        verbose_name = _('Параметр товара')
+        verbose_name_plural = _('Параметры товара')
+
+    def __str__(self):
+        return '{}: {}'.format(self.product.title, self.make_human_string())
 
     def make_human_string(self):
         return '; '.join([str(item) for item in self.value.all()])

@@ -88,6 +88,11 @@ label.error {
   text-align: center;
 }
 
+.product-list__item-image {
+  margin-left: -25px;
+  max-width: calc(100% + 50px) !important;
+}
+
 // ---------------------------------- Shopping cart ----------------------------------
 
 .cart-image__container {

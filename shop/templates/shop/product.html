@@ -48,7 +48,22 @@
                     {{ product.text | safe }}
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab22">
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                    <table class="table-striped table">
+                        <tr>
+                            <th>{% trans 'Характеристика' %}</th>
+                            <th>{% trans 'Значение' %}</th>
+                        </tr>
+                        {% for parameter in product.productparameters_set.all %}
+                            <tr>
+                                <td>{{ parameter.value.first.parameter.title }}</td>
+                                <td>
+                                    {% for value in parameter.value.all %}
+                                        {{ value.value }}{% if forloop.last %}{% else %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>

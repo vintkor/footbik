@@ -68,6 +68,10 @@ label.error {
   margin-top: 0;
   text-align: center; }
 
+.product-list__item-image {
+  margin-left: -25px;
+  max-width: calc(100% + 50px) !important; }
+
 .cart-image__container {
   width: 70px; }
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     Category,
     Product,
-    # Image,
+    ProductParameters,
     Parameter,
     Value,
     Variant,
@@ -29,6 +29,16 @@ class VariantInline(admin.StackedInline):
     filter_horizontal = ('value',)
 
 
+class ProductParametersInline(admin.TabularInline):
+    extra = 0
+    model = ProductParameters
+    filter_horizontal = ('value',)
+
+
+class ProductParametersAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Category)
 class CategoryAdmin(DraggableMPTTAdmin, TabbedTranslationAdmin):
     save_on_top = True
@@ -40,12 +50,7 @@ class CategoryAdmin(DraggableMPTTAdmin, TabbedTranslationAdmin):
 class ProductAdmin(TabbedTranslationAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('title',)}
-    inlines = (VariantInline,)
-
-
-# @admin.register(Image)
-# class Image(admin.ModelAdmin):
-#     pass
+    inlines = (VariantInline, ProductParametersInline)
 
 
 @admin.register(Parameter)

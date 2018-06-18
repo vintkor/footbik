@@ -51,6 +51,7 @@ class ProductDetailView(DetailView):
             product = Product.objects.prefetch_related(
                 'variant_set__value',
                 'variant_set__value__parameter',
+                'productparameters_set__value__variant_set',
             ).get(slug=self.kwargs.get('slug'))
         except Product.DoesNotExist:
             raise Http404('Page not found')
