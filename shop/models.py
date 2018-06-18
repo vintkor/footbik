@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Sum
 from django.utils.translation import ugettext as _
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
@@ -8,6 +7,9 @@ from user_profile.models import User
 
 
 class Category(MPTTModel):
+    """
+    Категория товара
+    """
     parent = TreeForeignKey(
         'self', verbose_name=_('Родитель'), null=True, blank=True,
         related_name='children', db_index=True, on_delete=models.CASCADE)
@@ -37,6 +39,9 @@ class Category(MPTTModel):
 
 
 class Product(models.Model):
+    """
+    Товар
+    """
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name=_('Название'))
     slug = models.SlugField(null=True, max_length=230, unique=True)
@@ -57,6 +62,9 @@ class Product(models.Model):
 
 
 class Parameter(models.Model):
+    """
+    Характеристика товара
+    """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
 
     class Meta:
@@ -68,6 +76,9 @@ class Parameter(models.Model):
 
 
 class Value(models.Model):
+    """
+    Допустимые значения характеристики товара
+    """
     parameter = models.ForeignKey(Parameter, on_delete=models.CASCADE, verbose_name=_('Параметр'))
     value = models.CharField(max_length=200, verbose_name=_('Значение'))
 
@@ -80,6 +91,9 @@ class Value(models.Model):
 
 
 class Variant(models.Model):
+    """
+    Вариант товара (по определённой характеристике)
+    """
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name=_('Товар'))
     value = models.ManyToManyField(Value, verbose_name=_('Набор значений'))
     price = models.DecimalField(verbose_name=_('Цена'), decimal_places=2, max_digits=10)
@@ -100,6 +114,9 @@ class Variant(models.Model):
 
 
 class Cart(models.Model):
+    """
+    Корзина
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Пользователь'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
     is_complete = models.BooleanField(default=False, verbose_name=_('Оформленна'))
@@ -116,6 +133,9 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
+    """
+    Строка корзины - вариан товара
+    """
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, verbose_name=_('Корзина'))
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE, verbose_name=_('Вариант'))
     quantity = models.PositiveIntegerField(verbose_name=_('Количество'))
