@@ -12,6 +12,7 @@
     <form action="">
     <table class="table table-striped cart-table">
         <tr>
+            <th></th>
             <th class="cart-image__container"></th>
             <th>{% trans 'Товар' %}</th>
             <th class="text-center">{% trans 'Количество' %}</th>
@@ -20,6 +21,9 @@
         </tr>
         {% for cart_item in cart_items %}
             <tr>
+                <td class="cart-table__td text-center">
+                    <a href="{% url 'shop:delete-product-from-cart' cart_item.pk %}"><i class="fa fa-close text-danger"></i></a>
+                </td>
                 <td class="cart-table__td">
                     <div role="img" class="cart-image" style="background-image: url('{{ cart_item.variant.product.image.url }}')"></div>
                 </td>
@@ -35,7 +39,7 @@
             </tr>
         {% endfor %}
         <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td class="text-center">
                 <a href="#" id="saveCart" class="btn btn-rounded btn-default">{% trans 'Сохранить' %}</a>
             </td>

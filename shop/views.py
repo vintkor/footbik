@@ -109,3 +109,19 @@ class AddToCart(View):
 
         messages.success(request, _('Товар успешно добавлен в корзину'))
         return redirect(self.request.META.get('HTTP_REFERER'))
+
+
+class DeleteProductFromCartView(View):
+    """
+    Удаление варианта товара из корзины
+    """
+
+    def get(self, request, cart_item_id):
+        cart_item = get_object_or_404(CartItem, pk=cart_item_id)
+        if cart_item.cart.user == self.request.user:
+            cart_item.delete()
+            messages.success(request, _('Товар успешно удалён из корзины'))
+            return redirect(self.request.META.get('HTTP_REFERER'))
+        else:
+            messages.success(request, _('У Вас недостаточно прав для выполнения данной операции'))
+            return redirect(self.request.META.get('HTTP_REFERER'))
