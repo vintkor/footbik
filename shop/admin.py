@@ -51,6 +51,12 @@ class ProductAdmin(TabbedTranslationAdmin):
     save_on_top = True
     prepopulated_fields = {'slug': ('title',)}
     inlines = (VariantInline, ProductParametersInline)
+    list_display = (
+        'title',
+        'get_price_range',
+        'get_count_variants',
+    )
+
 
 
 @admin.register(Parameter)

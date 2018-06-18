@@ -72,6 +72,13 @@ class Product(models.Model):
             return '{} - {}'.format(str(min(prices)), str(max(prices)))
         return str(prices[0])
 
+    get_price_range.short_description = _('Цена')
+
+    def get_count_variants(self):
+        return self.variant_set.count()
+
+    get_count_variants.short_description = _('Кол-во вариантов')
+
 
 class Parameter(models.Model):
     """
