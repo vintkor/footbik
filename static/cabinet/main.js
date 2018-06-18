@@ -125,5 +125,50 @@ $(document).ready(function () {
         $('.input_styler').styler();
     }
 
+    // ------------------------------- Пересчёт количества товаров в корзине -------------------------------
+
+    function cartRecount() {
+        var totalRow = 0,
+            totalCart = 0;
+        $.each($('.cartRow'), function (index, value) {
+            var rowQuantity = parseInt($(value).find('input.cart-quantity').val()),
+                rowPrice = parseFloat($(value).find('.cartRowPrice').text());
+            totalRow = rowPrice * rowQuantity;
+            totalCart += totalRow;
+            $(value).find('.cartRowTotal').text(totalRow.toFixed(2));
+            totalRow = 0;
+        });
+        $('#cartTotal').text(totalCart.toFixed(2));
+    }
+
+    var saveCartBtn = $('#saveCartBtn'),
+        cartCheckoutBtn = $('#cartCheckoutBtn'),
+        productQuantityInput = $('input.cart-quantity'),
+        form = $('#cartForm');
+
+    productQuantityInput.on('change, input', function () {
+        saveCartBtn.show();
+        cartCheckoutBtn.hide();
+        cartRecount();
+    });
+
+    saveCartBtn.click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: window.location.href,
+            data: form.serialize(),
+            method: 'post',
+            success: function (response) {
+                if (response.status) {
+                    saveCartBtn.hide();
+                    cartCheckoutBtn.show();
+                }
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+    });
+
 
 });

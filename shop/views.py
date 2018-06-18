@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
@@ -10,6 +10,7 @@ from .models import (
     Cart)
 from django.contrib import messages
 from django.utils.translation import ugettext as _
+from django.db import transaction
 
 
 class CategoryListView(ListView):
@@ -74,6 +75,24 @@ class CartItemListView(ListView):
         except:
             pass
         return context
+
+    def post(self, request):
+        cart_items = self.request.POST.getlist('cart_item')
+        quantities = self.request.POST.getlist('quantity')
+        items_in_cart = zip(cart_items, quantities)
+
+        with transaction.atomic():
+            for i in items_in_cart:
+
+                try:
+                    cart_item = CartItem.objects.get(pk=int(i[0]))
+                except CartItem.DoesNotExist:
+                    return JsonResponse({'status': 0, 'message': 'Some error'})
+
+                cart_item.quantity = int(i[1])
+                cart_item.save(update_fields=('quantity',))
+
+            return JsonResponse({'status': 1})
 
 
 class AddToCart(View):

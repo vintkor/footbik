@@ -1,6 +1,8 @@
 {% extends 'cabinet.html' %}
 {% load static %}
 {% load i18n %}
+{% load shop_nav %}
+{% load l10n %}
 
 {% block title %}{{ product.title }} {% trans 'Корзина' %}{% endblock %}
 {% block page_title %}{% endblock page_title %}
@@ -9,44 +11,55 @@
     {% include 'shop/_shop-top-nav.html' %}
     <h1 class="shop__product-title">{% trans 'Корзина' %}</h1>
 
-    <form action="">
-    <table class="table table-striped cart-table">
-        <tr>
-            <th></th>
-            <th class="cart-image__container"></th>
-            <th>{% trans 'Товар' %}</th>
-            <th class="text-center">{% trans 'Количество' %}</th>
-            <th class="text-center">{% trans 'Цена' %}</th>
-            <th class="text-center">{% trans 'Итого' %}</th>
-        </tr>
-        {% for cart_item in cart_items %}
+    {% if cart_items.count > 0 %}
+
+        <form action="" id="cartForm" method="post">
+        {% csrf_token %}
+        <table class="table table-striped cart-table" id="cartTable">
             <tr>
-                <td class="cart-table__td text-center">
-                    <a href="{% url 'shop:delete-product-from-cart' cart_item.pk %}"><i class="fa fa-close text-danger"></i></a>
-                </td>
-                <td class="cart-table__td">
-                    <div role="img" class="cart-image" style="background-image: url('{{ cart_item.variant.product.image.url }}')"></div>
-                </td>
-                <td class="cart-table__td">
-                    <h5><a href="{{ cart_item.variant.product.get_absolute_url }}">{{ cart_item.variant.product.title }}</a></h5>
-                    <small>{{ cart_item.variant.make_human_string }}</small>
-                </td>
-                <td class="cart-table__td text-center">
-                    <input type="number" value="{{ cart_item.quantity }}" class="qart-quantity input_styler" name="quantity">
-                </td>
-                <td class="cart-table__td text-center">${{ cart_item.variant.price }}</td>
-                <td class="cart-table__td text-center">${{ cart_item.get_total }}</td>
+                <th></th>
+                <th class="cart-image__container"></th>
+                <th>{% trans 'Товар' %}</th>
+                <th class="text-center">{% trans 'Количество' %}</th>
+                <th class="text-center" style="width: 200px;">{% trans 'Цена' %}</th>
+                <th class="text-center">{% trans 'Итого' %}</th>
             </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="4"></td>
-            <td class="text-center">
-                <a href="#" id="saveCart" class="btn btn-rounded btn-default">{% trans 'Сохранить' %}</a>
-            </td>
-            <td class="text-center">${{ cart_total }}</td>
-        </tr>
-    </table>
-    </form>
+            {% for cart_item in cart_items %}
+                <tr class="cartRow">
+                    <td class="cart-table__td text-center">
+                        <a href="{% url 'shop:delete-product-from-cart' cart_item.pk %}"><i class="fa fa-close text-danger"></i></a>
+                    </td>
+                    <td class="cart-table__td">
+                        <div role="img" class="cart-image" style="background-image: url('{{ cart_item.variant.product.image.url }}')"></div>
+                    </td>
+                    <td class="cart-table__td">
+                        <h5><a href="{{ cart_item.variant.product.get_absolute_url }}">{{ cart_item.variant.product.title }}</a></h5>
+                        <small>{{ cart_item.variant.make_human_string }}</small>
+                    </td>
+                    <td class="cart-table__td text-center">
+                        <input type="hidden" name="cart_item" value="{{ cart_item.id }}">
+                        <input type="number" value="{{ cart_item.quantity }}" class="cart-quantity input_styler" name="quantity" min="1">
+                    </td>
+                    <td class="cart-table__td text-center">$<span class="cartRowPrice">{{ cart_item.variant.price | unlocalize }}</span></td>
+                    <td class="cart-table__td text-center">$<span class="cartRowTotal">{{ cart_item.get_total | unlocalize }}</span></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4"></td>
+                <td class="text-center">
+                    <a href="#" id="saveCartBtn" style="display: none;" class="btn btn-rounded btn-default">{% trans 'Сохранить изменения' %}</a>
+                </td>
+                <td class="text-center">$<span id="cartTotal">{{ cart_total | unlocalize }}</span></td>
+            </tr>
+        </table>
+        <div class="text-center">
+            <button id="cartCheckoutBtn" class="btn btn-success btn-rounded btn-lg">{% trans 'Оформить заказ' %}</button>
+        </div>
+        </form>
+
+    {% else %}
+        <h2 class="text-center text-info">{% trans 'Ваша корзина ещё пуста' %}</h2>
+    {% endif %}
 
 {% endblock content %}
 
