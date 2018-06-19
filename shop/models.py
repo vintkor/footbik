@@ -17,6 +17,8 @@ class Category(MPTTModel):
     slug = models.SlugField(null=True, max_length=230, unique=True)
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name = _('Категория')
         verbose_name_plural = _('Категории')
@@ -49,6 +51,8 @@ class Product(models.Model):
     text = RichTextUploadingField(verbose_name=_('Текст'), blank=True, null=True)
     is_virtual = models.BooleanField(default=False, verbose_name=_('Является виртуальным товаром'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name = _('Товар')
@@ -86,6 +90,8 @@ class Parameter(models.Model):
     """
     title = models.CharField(max_length=200, verbose_name=_('Название'))
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name = _('Параметр')
         verbose_name_plural = _('Параметры')
@@ -100,6 +106,8 @@ class Value(models.Model):
     """
     parameter = models.ForeignKey(Parameter, on_delete=models.CASCADE, verbose_name=_('Параметр'))
     value = models.CharField(max_length=200, verbose_name=_('Значение'))
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name = _('Значение')
@@ -117,6 +125,8 @@ class Variant(models.Model):
     value = models.ManyToManyField(Value, verbose_name=_('Набор значений'))
     price = models.DecimalField(verbose_name=_('Цена'), decimal_places=2, max_digits=10)
     quantity = models.PositiveIntegerField(verbose_name=_('Количество'))
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name = _('Вариант')
@@ -139,6 +149,8 @@ class ProductParameters(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     value = models.ManyToManyField(Value, verbose_name=_('Набор значений'))
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name = _('Параметр товара')
         verbose_name_plural = _('Параметры товара')
@@ -158,6 +170,8 @@ class Cart(models.Model):
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
     is_complete = models.BooleanField(default=False, verbose_name=_('Оформленна'))
 
+    objects = models.Manager()
+
     class Meta:
         verbose_name = _('Корзина')
         verbose_name_plural = _('Корзины')
@@ -168,6 +182,8 @@ class Cart(models.Model):
     def get_cart_total_sum(self):
         return sum([item.get_total() for item in self.cartitem_set.all()])
 
+    get_cart_total_sum.short_description = _('Итого')
+
 
 class CartItem(models.Model):
     """
@@ -177,6 +193,8 @@ class CartItem(models.Model):
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE, verbose_name=_('Вариант'))
     quantity = models.PositiveIntegerField(verbose_name=_('Количество'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
+
+    objects = models.Manager()
 
     class Meta:
         verbose_name = _('Товар корзины')

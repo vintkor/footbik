@@ -86,3 +86,10 @@ class CartItemInline(admin.TabularInline):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     inlines = (CartItemInline,)
+    list_display = (
+        'user',
+        'created',
+        'is_complete',
+        'get_cart_total_sum',
+    )
+    list_filter = ('is_complete',)
