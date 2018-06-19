@@ -93,3 +93,21 @@ class AddChildForm(forms.Form):
         if is_email_in_db:
             raise forms.ValidationError(_('Пользователь с таким адресом уже существует'), code='invalid')
         return email
+
+
+class EditProfileForm(forms.Form):
+    """
+    Форма редактирования профиля
+    """
+    first_name = forms.CharField(label=_('Имя'), required=True)
+    last_name = forms.CharField(label=_('Фамилия'), required=True)
+    email = forms.EmailField(label=_('Email'), required=True)
+    date_of_birth = forms.DateField(label=_('Дата рождения'), required=False)
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('current_user')
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].initial = user.first_name
+        self.fields['last_name'].initial = user.last_name
+        self.fields['email'].initial = user.email
+        self.fields['date_of_birth'].initial = user.date_of_birth

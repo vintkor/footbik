@@ -58,9 +58,8 @@ class ProductAdmin(TabbedTranslationAdmin):
     )
 
 
-
 @admin.register(Parameter)
-class ParameterAdmin(admin.ModelAdmin):
+class ParameterAdmin(TabbedTranslationAdmin):
     inlines = (ValueInline,)
 
 

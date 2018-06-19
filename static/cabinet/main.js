@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     // ------------------------------- Регистрация ребёнка -------------------------------
 
-    $('#child-register-form').find('input').each(function () {
+    $('#child-register-form, #editProfileForm').find('input').each(function () {
         $(this).addClass('form-control');
     });
 
@@ -169,6 +169,14 @@ $(document).ready(function () {
             }
         });
     });
+
+    if ($.fn.datetimepicker) {
+        console.log();
+        $('.dateInput').find('input').datetimepicker({
+            maxDate: Date.now(),
+            format: 'DD.MM.Y'
+        });
+    }
 
 
 });

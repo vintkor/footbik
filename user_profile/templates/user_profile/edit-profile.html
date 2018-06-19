@@ -1,0 +1,42 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+{% load user_profile_tags %}
+
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+    <form action="" method="post" class="form" id="editProfileForm">
+        {% csrf_token %}
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-white">
+                <div class="panel-body user-profile-panel">
+                    {% for field in form %}
+                        {% is_date_input field as date_input %}
+                        <div class="form-group {% if field.errors %}has-error{% endif %} {% if date_input %}dateInput{% endif %}">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="required-field">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <label class="error">{{ error }}</label>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary">{% trans 'Сохранить' %}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
+
+{% block header_scripts %}
+    <script src="{% static '/' %}bower_components/moment/moment.js"></script>
+    <script src="{% static '/' %}bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="{% static '/' %}bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+{% endblock header_scripts %}
+{% block footer_scripts %}{% endblock footer_scripts %}

@@ -1,10 +1,9 @@
 from django.db import models
 from django.utils.translation import ugettext as _
-from geo.models import Region
-from django.urls import reverse
-from user_profile.models import User, Administrator, Child
 from colorfield.fields import ColorField
 from ckeditor_uploader.fields import RichTextUploadingField
+from geo.models import Region
+from user_profile.models import User, Administrator, Child
 
 
 class Club(models.Model):
@@ -17,7 +16,8 @@ class Club(models.Model):
     meta_description = models.CharField(max_length=200, verbose_name=_('META Описание'), blank=True, null=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name=_('Регион'))
     created = models.DateTimeField(verbose_name=_('Дата создания'), auto_now_add=True, auto_now=False)
-    super_admin = models.ForeignKey(Administrator, on_delete=models.CASCADE, verbose_name=_('Главный администратор клуба'))
+    super_admin = models.ForeignKey(
+        Administrator, on_delete=models.CASCADE, verbose_name=_('Главный администратор клуба'))
 
     class Meta:
         verbose_name = _('Клуб')

@@ -15,6 +15,7 @@ from .forms import (
     LoginForm,
     RegisterForm,
     AddChildForm,
+    EditProfileForm,
 )
 from django.contrib.auth import (
     logout,
@@ -145,3 +146,25 @@ class AddChildFormView(FormView):
 
         messages.success(self.request, _('Ребёнок успешно зарегистрирован'), extra_tags='success')
         return redirect(reverse_lazy('user:my-children'))
+
+
+class EditProfileFormView(FormView):
+    template_name = 'user_profile/edit-profile.html'
+    form_class = EditProfileForm
+    current_user = None
+
+    def get(self, request, *args, **kwargs):
+        self.set_current_user()
+        return super().get(args, kwargs)
+
+    def set_current_user(self):
+        self.current_user = User.objects.get(pk=self.request.user.pk)
+
+    def get_form_kwargs(self):
+        self.set_current_user()
+        kwargs = super(EditProfileFormView, self).get_form_kwargs()
+        kwargs['current_user'] = self.current_user
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('user:profile')

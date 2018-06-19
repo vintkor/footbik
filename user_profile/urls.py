@@ -6,12 +6,14 @@ from .views import (
     RegisterFormView,
     ChildrenListView,
     AddChildFormView,
+    EditProfileFormView,
 )
 
 
 app_name = 'user'
 urlpatterns = [
     path('profile/', UserDetailView.as_view(), name='profile'),
+    path('profile/edit/', EditProfileFormView.as_view(), name='edit-profile'),
     path('login/', LoginFormView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
     path('register/', RegisterFormView.as_view(), name='register'),
