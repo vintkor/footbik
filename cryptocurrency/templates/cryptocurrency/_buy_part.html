@@ -6,7 +6,7 @@
     <h3 class="text-center">{% trans 'Введите сумму в ' %}{{ currency.code }}</h3>
     <input type="number" id="currencyAmount" value="{{ amount_tokens|unlocalize }}" min="{{ amount_tokens|unlocalize }}" class="text-center buy-part__amount">
 
-    <p>1 {{ currency.code }} = <span id="currensyCourse">{{ currency.course }}</span> $</p>
+    <p>1 {{ currency.code }} = <span id="currensyCourse">{{ currency_course }}</span> $</p>
     <p>1 FCN = <span class="coin-course">{{ course|unlocalize }}</span> $</p>
 
     <div class="ico__you-get bg-success">

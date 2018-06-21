@@ -214,7 +214,7 @@ $(document).ready(function () {
                 $(currencyAmount).on('change, input', function () {
                     var amount = parseFloat($(this).val());
                     var tokenAmount = ((amount * course)/token_course).toFixed(7);
-                    var bonus = tokenAmount * .03;
+                    var bonus = (tokenAmount * .03).toFixed(0);
                     contentWrapper.find('#ico__you-get__amount').text(tokenAmount);
                     contentWrapper.find('#ico__you-get__bonus').text(bonus);
                 });
