@@ -1,3 +1,15 @@
+.loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 555; }
+
 .login-page {
   background-image: url("assets/images/login.jpeg"); }
 
@@ -86,3 +98,20 @@ label.error {
   height: 60px;
   border-radius: 5px;
   border: 2px solid white; }
+
+.buy-part__amount {
+  font-size: 40px;
+  color: black;
+  outline: none;
+  border: none; }
+
+.ico__you-get {
+  padding: 20px;
+  border-radius: 4px; }
+
+.ico__you-get__title {
+  color: white;
+  font-size: 30px; }
+
+.ico__you-get__amount {
+  font-size: 50px; }

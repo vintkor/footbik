@@ -38,6 +38,20 @@ $(document).ready(function () {
         }
     });
 
+    // ------------------------------- Loader -------------------------------
+    var loader = $('#loader');
+    function startLoader(){
+        loader.css({
+            display: 'flex'
+        })
+    }
+
+    function endLoader(){
+        loader.css({
+            display: 'none'
+        })
+    }
+
 
     // ------------------------------- Регистрация ребёнка -------------------------------
 
@@ -177,6 +191,41 @@ $(document).ready(function () {
             format: 'DD.MM.Y'
         });
     }
+
+
+    // ------------------------------- ??? -------------------------------
+
+    $('#currency-select').on('change', function () {
+        var currency = $(this).val();
+        startLoader();
+        $.ajax({
+            url: window.location.href,
+            data: {currency: currency},
+            method: 'post',
+            success: function (response) {
+                var contentWrapper = $('#contentWrapper');
+                contentWrapper.html(response);
+                endLoader();
+
+                var currencyAmount = contentWrapper.find('#currencyAmount');
+                var token_course = parseFloat(contentWrapper.find('.coin-course').text());
+                var course = parseFloat(contentWrapper.find('#currensyCourse').text());
+
+                $(currencyAmount).on('change, input', function () {
+                    var amount = parseFloat($(this).val());
+                    var tokenAmount = ((amount * course)/token_course).toFixed(7);
+                    var bonus = tokenAmount * .03;
+                    contentWrapper.find('#ico__you-get__amount').text(tokenAmount);
+                    contentWrapper.find('#ico__you-get__bonus').text(bonus);
+                });
+
+            },
+            error: function () {
+                alert('Oops! It was error!');
+                endLoader();
+            }
+        });
+    });
 
 
 });

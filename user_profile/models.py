@@ -62,6 +62,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Investor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    # TODO Добавить адрес пользователя в смарте
+
     class Meta:
         verbose_name = _('Инвестор')
         verbose_name_plural = _('Инвесторы')
@@ -72,6 +74,8 @@ class Investor(models.Model):
 
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # TODO Добавить адрес пользователя в смарте
 
     class Meta:
         verbose_name = _('Родитель')

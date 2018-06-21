@@ -13,6 +13,7 @@ urlpatterns = [
         path('user/', include('user_profile.urls')),
         path('club/', include('club.urls')),
         path('shop/', include('shop.urls')),
+        path('cryptocurrency/', include('cryptocurrency.urls')),
     ])),
     path('', TemplateView.as_view(template_name='publick.html'), name='index'),
     path('news/', include('news.urls')),

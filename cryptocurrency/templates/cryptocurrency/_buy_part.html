@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load qr_code %}
+{% load l10n %}
+
+<div class="buy-part__wrapper text-center">
+    <h3 class="text-center">{% trans 'Введите сумму в ' %}{{ currency.code }}</h3>
+    <input type="number" id="currencyAmount" value="{{ amount_tokens|unlocalize }}" min="{{ amount_tokens|unlocalize }}" class="text-center buy-part__amount">
+
+    <p>1 {{ currency.code }} = <span id="currensyCourse">{{ currency.course }}</span> $</p>
+    <p>1 FCN = <span class="coin-course">{{ course|unlocalize }}</span> $</p>
+
+    <div class="ico__you-get bg-success">
+        <h4 class="ico__you-get__title">{% trans 'Вы получите FCN' %}</h4>
+        <p class="ico__you-get__amount"><span id="ico__you-get__amount">400</span></p>
+        <p class="ico__you-get__bonus">+ Бонус <span id="ico__you-get__bonus">12</span></p>
+    </div>
+
+    {% qr_from_text "address_of_our_wallet" size="M" %}
+
+    <div class="form-group">
+        <label for="addressWallet">{% trans 'Адрес кошелька' %}</label>
+        <input type="text" class="form-control text-center" value="{{ address_of_our_wallet }}" id="addressWallet">
+    </div>
+
+    <button class="btn btn-primary btn-rounded" id="copyAddressWallet">{% trans 'Копировать адрес' %}</button>
+
+    <hr>
+
+    <div class="ico__text-info">
+        <p>Это ваш личный LTC адрес для оплаты. Вы можете отправлять любые суммы LTC неограниченное количество раз, взамен вы получите HCC токены. Вы можете отправлять средства с бирж и ERC20 несовместимых кошельков.</p>
+        <p>Зачисление платежа происходит от нескольких минут до нескольких часов с момента оплаты.</p>
+    </div>
+
+</div>

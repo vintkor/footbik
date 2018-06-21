@@ -1,6 +1,7 @@
 {% extends 'cabinet.html' %}
 {% load static %}
 {% load i18n %}
+{% load l10n %}
 
 {% block title %}{{ user.get_full_name }}{% endblock %}
 {% block page_title %}{% endblock page_title %}
@@ -11,7 +12,7 @@
             <div class="panel-body user-profile-panel">
                 <img src="{% static '/cabinet/' %}assets/images/avatars/avatar1.jpg" class="user-profile-image img-circle" alt="">
                 <h4 class="text-center m-t-lg">{{ user.get_full_name }}</h4>
-                <p class="text-center">...</p>
+                <p class="text-center">{% trans 'Баланс' %} - {{ balance|unlocalize }}</p>
                 <hr>
                 <ul class="list-unstyled text-center">
                     <li><p><i class="fa fa-map-marker m-r-xs"></i>Melbourne, Australia</p></li>

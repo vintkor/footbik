@@ -1,0 +1,62 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ product.title }} {% trans 'Участие в ICO' %}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+
+    <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
+        <div class="panel">
+            <h1 class="text-center">{% trans 'Участие в ICO' %}</h1>
+            <div class="panel-body">
+                <div class="ico__balance-wrapper text-center">
+                    <h4 class="ico__user-balance">{% trans 'ВАШ БАЛАНС' %}</h4>
+                    <p class="ico__count-balance">0</p>
+                    <table class="table-striped table text-left">
+                        <tr>
+                            <td>{% trans 'Реферальная ссылка' %}</td>
+                            <td>
+                                <a href="http://localhost:8000/?ref=MWQ4Zg">
+                                    http://localhost:8000/?ref=MWQ4Zg
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Инвестировано' %}</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Бонус' %}</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Собрано на ICO' %}</td>
+                            <td>2.38 $</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-primary btn-rounded" href="{% url 'cryptocurrency:buy' %}">
+                    {% trans 'Купить FCN сейчас' %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel">
+            <h2 class="text-center">{% trans 'История покупок' %}</h2>
+            <p>Нет транзакций</p>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block header_scripts %}
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}

@@ -1,5 +1,19 @@
 $bg-color: #F7F9FA;
 $white-color: #fff;
+$black-color: #000;
+
+.loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba($white-color, .5);
+  z-index: 555;
+}
 
 .login-page {
   background-image: url("assets/images/login.jpeg");
@@ -112,3 +126,30 @@ label.error {
   border-radius: 5px;
   border: 2px solid $white-color;
 }
+
+// ---------------------------------- ICO page ----------------------------------
+
+.buy-part__wrapper {
+
+}
+
+.buy-part__amount {
+  font-size: 40px;
+  color: $black-color;
+  outline: none;
+  border: none;
+}
+
+.ico__you-get {
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.ico__you-get__title {
+  color: $white-color;
+  font-size: 30px;
+}
+.ico__you-get__amount {
+  font-size: 50px;
+}
+.ico__you-get__bonus {}

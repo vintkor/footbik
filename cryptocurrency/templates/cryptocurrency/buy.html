@@ -1,0 +1,43 @@
+{% extends 'cabinet.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ product.title }} {% trans 'Участие в ICO' %}{% endblock %}
+{% block page_title %}{% endblock page_title %}
+
+{% block content %}
+
+    <div class="col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0">
+        <div class="panel">
+            <h1 class="text-center">{% trans 'Выберите способ оплаты' %}</h1><br>
+            <div class="panel-body">
+                <div class="ico__balance-wrapper">
+                    <div class="alert alert-info text-center" role="alert">
+                        Минимальная сумма покупки: 100 $
+                    </div>
+                    <form action="" class="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="currency-select">{% trans 'Выберите криптовалюту' %}</label>
+                            <select id="currency-select" name="currency" class="form-control">
+                                <option value="0" selected disabled>{% trans 'Выберите криптовалюту' %}</option>
+                                {% for currency in currencies %}
+                                    <option value="{{ currency.id }}">{{ currency.code }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="contentWrapper"></div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block header_scripts %}
+{% endblock header_scripts %}
+
+{% block footer_scripts %}
+{% endblock footer_scripts %}

@@ -25,6 +25,7 @@ from django.contrib.auth import (
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.contrib.auth.mixins import LoginRequiredMixin
+from cryptocurrency.utils import CryptoCurrencyInterface
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -36,6 +37,17 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         return User.objects.get(id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data()
+
+        crypto = CryptoCurrencyInterface()
+
+        # TODO Указать правильный адрес пользователя
+        address = '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a'
+        context['balance'] = crypto.get_user_balance(address=address)
+
+        return context
 
 
 def logout_view(request):
